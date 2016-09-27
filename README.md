@@ -9,4 +9,4 @@ And then
 
 gradlew run
 
-Or, run in an IDE by running the Main class in the runtime package
+Or, run in an IDE by running the Main class in the runtime package. If importing as a project, import as a general, or java project if prompted.
