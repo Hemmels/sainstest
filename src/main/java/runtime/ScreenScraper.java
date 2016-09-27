@@ -2,6 +2,7 @@ package runtime;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,6 @@ import pojo.RipeFruit;
 public class ScreenScraper {
 
 	private static final String URL_TEST_RIPE_PAGE = "http://hiring-tests.s3-website-eu-west-1.amazonaws.com/2015_Developer_Scrape/5_products.html";
-	private static final String URL_LIVE_RIPE_PAGE = "http://www.sainsburys.co.uk/shop/gb/groceries/fruit-veg/ripe---ready";
 	// 10s limit for timeout attempt at going to webpage.
 	private static int INT_TIMEOUT_LIMIT = 10000;
 
@@ -72,7 +72,7 @@ public class ScreenScraper {
 	private float calcCostTotal(ArrayList<RipeFruit> fruitItems) {
 		float runningCost = 0;
 		for (RipeFruit rf : fruitItems) {
-			runningCost += rf.getUnitPrice();
+			runningCost += Float.parseFloat(rf.getUnitPrice());
 		}
 		return runningCost;
 	}
@@ -119,15 +119,17 @@ public class ScreenScraper {
 
 	private Object[] processPage(Document fruitPage, int pageBytes) {
 		String title;
-		float unitPrice;
+		String unitPrice;
 		String description;
 
 		Elements productInfo = fruitPage.select("h1");
 		title = productInfo.get(0).text();
 
 		productInfo = fruitPage.select("p.pricePerUnit");
-		unitPrice = Float.parseFloat(productInfo.get(0).textNodes().get(0).text().replaceAll("£", "").trim());
-
+		float unit = Float.parseFloat(productInfo.get(0).textNodes().get(0).text().replaceAll("£", "").trim());
+		DecimalFormat myFormatter = new DecimalFormat("0.00");
+		unitPrice = myFormatter.format(unit);
+		
 		productInfo = fruitPage.select("h3.productDataItemHeader:contains(Description) + div");
 		description = productInfo.get(0).text();
 

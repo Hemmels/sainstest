@@ -15,13 +15,13 @@ public class RipeFruit {
 	private String title;
 	// Easier to store the page size here
 	private String page_size;
-	private float unitPrice;
+	private String unitPrice;
 	private String description;
 
 	public RipeFruit(Object[] fruitData) {
 		setTitle((String) fruitData[0]);
-		setPageSize((int) fruitData[1] + "kb");
-		setUnitPrice((float) fruitData[2]);
+		setPageSize(((int) fruitData[1] / 1024) + "kb");
+		setUnitPrice((String) fruitData[2]);
 		setDescription((String) fruitData[3]);
 	}
 
@@ -41,11 +41,11 @@ public class RipeFruit {
 		this.page_size = page_size;
 	}
 
-	public float getUnitPrice() {
+	public String getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(float unit_price) {
+	public void setUnitPrice(String unit_price) {
 		this.unitPrice = unit_price;
 	}
 
