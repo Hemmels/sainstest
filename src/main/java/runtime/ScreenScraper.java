@@ -24,17 +24,9 @@ public class ScreenScraper {
 	public Document pageData;
 	private float costTotal = 0.0f;
 
-	public ScreenScraper(int liveSwitch) {
+	public ScreenScraper() {
 		try {
-			switch (liveSwitch) {
-			case 1: {
-				pageData = goToPage(URL_LIVE_RIPE_PAGE);
-				break;
-			}
-			default: {
-				pageData = goToPage(URL_TEST_RIPE_PAGE);
-			}
-			}
+			pageData = goToPage(URL_TEST_RIPE_PAGE);
 		}
 		catch (CouldNotGetDocumentException e) {
 			Logger.getGlobal().log(Level.SEVERE, "CouldNotGetDocumentException thrown visiting: " + e.getMessage(), e);

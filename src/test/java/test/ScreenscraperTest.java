@@ -28,7 +28,7 @@ public class ScreenscraperTest {
 	@Before
 	public void init() {
 		// Go to test site and populate object with data
-		screenScraper = new ScreenScraper(0);
+		screenScraper = new ScreenScraper();
 	}
 
 	@Test
