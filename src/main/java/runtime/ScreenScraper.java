@@ -1,4 +1,4 @@
-package sainstest;
+package runtime;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,9 @@ public class ScreenScraper {
 	
 	private static final String URL_TEST_RIPE_PAGE = "http://hiring-tests.s3-website-eu-west-1.amazonaws.com/2015_Developer_Scrape/5_products.html";
 	private static final String URL_LIVE_RIPE_PAGE = "http://www.sainsburys.co.uk/shop/gb/groceries/fruit-veg/ripe---ready";
+	
 	public Document pageData;
+	private float costTotal = 0.0f;
 	
 	public ScreenScraper(int liveSwitch) {
 		switch(liveSwitch){
@@ -28,14 +30,13 @@ public class ScreenScraper {
 		return null;
 	}
 
-	public Object scrapeFrontPage(){
-		float costTotal = 0.0f;
+	public String scrapeFrontPage(){
 		ArrayList<RipeFruit> fruitItems = null;
-		String[] fruitUrls;
+		ArrayList<String> fruitUrls = new ArrayList<String>();
 		
 		// Scrape page's html
 		fruitUrls = getFruitUrls(pageData);
-		fruitItems = new ArrayList<RipeFruit>(fruitUrls.length);
+		fruitItems = new ArrayList<RipeFruit>(fruitUrls.size());
 		
 		// Create data pojos
 		for (String fruitUrl : fruitUrls){
@@ -52,20 +53,47 @@ public class ScreenScraper {
 	private float getCostTotal(Document pageData) {
 		return 0;
 	}
-
-	private String[] getFruitUrls(Document pageData){
-		return null;
-	}
 	
+	/**
+	 * Simply pulls a list of URLs for fruits on the page
+	 * @param pageData
+	 * @return
+	 */
+	private ArrayList<String> getFruitUrls(Document pageData){
+		return new ArrayList<String>();
+	}
+
+
+	/**
+	 * "Visits" a fruit webpage and pulls back a pojo.
+	 * @param pageData
+	 * @return
+	 */
 	private RipeFruit scrapeFruitPage(String url){
 		Document fruitPage = goToPage(url);
 		Object[] fruitData = processPage(fruitPage);
 		new RipeFruit(fruitData);
 		return null;
 	}
+	
+	public RipeFruit testScrapeFruitPage(String url){
+		return scrapeFruitPage(url);
+	}
 
 	private Object[] processPage(Document fruitPage) {
-		return null;
+		return new Object[]{"title", "size", 0.01, "desc"};
+	}
+	
+	public Object[] testProcessPage(Document fruitPage){
+		return processPage(null);
+	}
+	
+	public String getTestUrl(){
+		return URL_TEST_RIPE_PAGE;
+	}
+	
+	public float getCostTotal(){
+		return costTotal;
 	}
 
 }
