@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.hamcrest.CoreMatchers;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
@@ -59,11 +61,9 @@ public class ScreenscraperTest {
 		}
 		assertTrue(decoded != null);
 
-		// Does it make sense?
-		// TODO: Test for valid JSON output
-		// List<RipeFruit> list = gson.fromJson(decoded.get("results"), new
-		// TypeToken<List<RipeFruit>>(){}.getType());
-		// assertTrue(list.size() > 5);
+		// Does it make sense as JSON output?
+		ArrayList<RipeFruit> list = gson.fromJson(decoded.get("results"), RipeFruit.getType());
+		assertTrue(list.size() > 5);
 		assertTrue(decoded.get("total").getAsFloat() > 0.01);
 	}
 
@@ -71,6 +71,7 @@ public class ScreenscraperTest {
 	public void testGetCostTotal() {
 		screenScraper.scrapeFrontPage();
 		assertTrue(screenScraper.getCostTotal() > 0.01);
+		assertTrue(screenScraper.getCostTotal() < 9999);
 	}
 
 	@Test

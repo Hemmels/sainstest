@@ -11,7 +11,6 @@ public class Main {
 		}
 	}
 
-	// TODO: Implementation
 	private static boolean doInputChecks(String[] args) {
 		boolean valid = false;
 		if (args.length == 1 && args[0].equals("0")) {

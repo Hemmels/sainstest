@@ -1,6 +1,16 @@
 package pojo;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
+import com.google.gson.reflect.TypeToken;
+
 public class RipeFruit {
+
+	public static Type getType() {
+		return new TypeToken<List<RipeFruit>>() {
+		}.getType();
+	};
 
 	private String title;
 	// Easier to store the page size here
