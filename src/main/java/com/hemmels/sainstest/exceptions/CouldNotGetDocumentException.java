@@ -1,4 +1,4 @@
-package exceptions;
+package com.hemmels.sainstest.exceptions;
 
 public class CouldNotGetDocumentException extends Exception {
 
